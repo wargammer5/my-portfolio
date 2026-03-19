@@ -386,6 +386,12 @@
       align-items: center;
       justify-content: center;
       font-size: 6rem;
+      overflow: hidden;
+    }
+    .about-avatar-inner video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
     }
     .about-text p { color: var(--text); line-height: 1.9; margin-bottom: 1.2rem; font-size: 1.05rem; }
     .about-stats { display: flex; gap: 2.5rem; margin-top: 2rem; }
@@ -629,7 +635,7 @@
     </div>
     <div class="about-grid">
       <div class="about-avatar animate-on-scroll">
-        <div class="about-avatar-inner">&#128128;</div>
+        <div class="about-avatar-inner"><video src="avatar.mp4" autoplay loop muted playsinline></video></div>
       </div>
       <div class="about-text animate-on-scroll">
         <p>Cybersecurity enthusiast & web developer. I study systems from the inside out &mdash; understanding how things break is the key to building them stronger. I specialize in offensive security, penetration testing and building secure web applications.</p>
