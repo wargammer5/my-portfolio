@@ -204,7 +204,7 @@
 
     .logo span { color: var(--text-dim); }
 
-    nav ul { list-style: none; display: flex; gap: 2.5rem; }
+    nav ul { list-style: none; display: flex; gap: 2.5rem; margin-left: auto; }
 
     nav a {
       color: var(--text-dim);
@@ -281,11 +281,61 @@
       animation: typewriter 3s steps(40) 1.5s both, blink 0.7s step-end infinite;
     }
 
-    .hero-buttons {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
+    .hero-terminal {
       animation: fadeInUp 1s ease 0.6s both;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .terminal-window {
+      background: #0c0c0c;
+      border: 1px solid rgba(255, 0, 64, 0.25);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(255, 0, 64, 0.08), 0 20px 60px rgba(0,0,0,0.5);
+      text-align: left;
+    }
+
+    .terminal-header {
+      background: #111;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(255, 0, 64, 0.1);
+    }
+
+    .terminal-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .terminal-title {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-left: 0.5rem;
+    }
+
+    .terminal-body {
+      padding: 1.2rem 1.5rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.85rem;
+      line-height: 2;
+    }
+
+    .term-line { white-space: nowrap; }
+
+    .prompt-sym { color: var(--red); }
+
+    .term-cmd { color: #e0e0e0; }
+
+    .term-output { color: var(--text-dim); padding-left: 1rem; }
+
+    .term-cursor {
+      border-right: 2px solid var(--red);
+      animation: blink 0.7s step-end infinite;
     }
 
     .btn {
@@ -299,18 +349,6 @@
       transition: all 0.3s;
       position: relative;
       overflow: hidden;
-    }
-
-    .btn-primary {
-      background: var(--red);
-      color: #000;
-      border: 1px solid var(--red);
-      font-weight: 700;
-    }
-
-    .btn-primary:hover {
-      box-shadow: 0 0 30px var(--red-glow), inset 0 0 30px rgba(0,0,0,0.2);
-      transform: translateY(-2px);
     }
 
     .btn-outline {
@@ -772,9 +810,22 @@
       <div class="hero-subtitle">
         <span class="typed">$ cybersecurity &amp; web development _</span>
       </div>
-      <div class="hero-buttons">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="#contact" class="btn btn-outline">Get In Touch</a>
+      <div class="hero-terminal">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <span class="terminal-dot" style="background:#ff5f56"></span>
+            <span class="terminal-dot" style="background:#ffbd2e"></span>
+            <span class="terminal-dot" style="background:#27c93f"></span>
+            <span class="terminal-title">root@kali:~</span>
+          </div>
+          <div class="terminal-body">
+            <div class="term-line"><span class="prompt-sym">&#10095;</span> <span class="term-cmd">whoami</span></div>
+            <div class="term-line term-output">offensive security specialist</div>
+            <div class="term-line"><span class="prompt-sym">&#10095;</span> <span class="term-cmd">cat /etc/mission</span></div>
+            <div class="term-line term-output">break it. understand it. secure it.</div>
+            <div class="term-line"><span class="prompt-sym">&#10095;</span> <span class="term-cmd term-cursor">cd /projects && ls -la _</span></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
