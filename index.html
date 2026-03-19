@@ -206,6 +206,48 @@
     .terminal-line .prompt { color:var(--red); }
     .terminal-line .cmd { color:var(--text); }
 
+    /* MODAL */
+    .modal-overlay {
+      position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(10px);
+      z-index:10000; display:flex; align-items:center; justify-content:center;
+      opacity:0; visibility:hidden; transition:all 0.3s; padding:2rem;
+    }
+    .modal-overlay.active { opacity:1; visibility:visible; }
+    .modal-content {
+      background:#0a0a0a; border:1px solid rgba(255,0,64,0.3); max-width:600px; width:100%;
+      padding:2.5rem; position:relative; max-height:85vh; overflow-y:auto;
+      transform:translateY(30px) scale(0.95); transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .modal-overlay.active .modal-content { transform:translateY(0) scale(1); }
+    .modal-close {
+      position:absolute; top:1rem; right:1.5rem; background:none; border:none;
+      color:var(--red); font-size:2rem; cursor:pointer; transition:all 0.3s;
+      line-height:1;
+    }
+    .modal-close:hover { text-shadow:0 0 15px var(--red-glow); transform:scale(1.2); }
+    .modal-icon { font-size:3rem; margin-bottom:1rem; filter:drop-shadow(0 0 15px var(--red-glow)); }
+    .modal-tag { font-family:'Share Tech Mono',monospace; font-size:0.7rem; color:var(--red); letter-spacing:2px; text-transform:uppercase; opacity:0.7; margin-bottom:0.3rem; }
+    .modal-title { font-family:'Orbitron',sans-serif; font-size:1.5rem; color:#fff; margin-bottom:1rem; }
+    .modal-desc { color:var(--text-dim); line-height:1.8; margin-bottom:1.5rem; font-size:0.95rem; }
+    .modal-section { margin-bottom:1.5rem; }
+    .modal-subtitle { font-family:'Share Tech Mono',monospace; font-size:0.8rem; color:var(--red); letter-spacing:2px; text-transform:uppercase; margin-bottom:0.8rem; }
+    .modal-list { list-style:none; padding:0; }
+    .modal-list li {
+      color:var(--text); font-size:0.9rem; padding:0.4rem 0; padding-left:1.2rem; position:relative; line-height:1.6;
+    }
+    .modal-list li::before { content:'>';  position:absolute; left:0; color:var(--red); font-family:'Share Tech Mono',monospace; }
+    .modal-tech { display:flex; flex-wrap:wrap; gap:0.5rem; }
+    .modal-tech span {
+      font-family:'Share Tech Mono',monospace; font-size:0.7rem; padding:0.3rem 0.7rem;
+      border:1px solid rgba(255,0,64,0.3); color:var(--red); letter-spacing:1px;
+    }
+    .modal-status {
+      font-family:'Share Tech Mono',monospace; font-size:0.85rem;
+      padding:0.5rem 1rem; border-left:2px solid var(--red); color:var(--text);
+    }
+    .modal-content::-webkit-scrollbar { width:4px; }
+    .modal-content::-webkit-scrollbar-thumb { background:var(--red); }
+
     footer { text-align:center; padding:3rem 2rem; border-top:1px solid rgba(255,0,64,0.1); font-family:'Share Tech Mono',monospace; font-size:0.8rem; color:var(--text-dim); }
     footer .red { color:var(--red); }
 
@@ -396,7 +438,7 @@
       <h2 data-i18n-html="projects_title">PRO<span class="red">JECTS</span></h2>
     </div>
     <div class="projects-grid">
-      <div class="project-card animate-on-scroll">
+      <div class="project-card animate-on-scroll" data-project="1">
         <div class="project-banner">
           <span class="icon">&#128375;</span>
           <div class="overlay"><span class="btn btn-outline" style="font-size:0.75rem" data-i18n="view_details">View Details</span></div>
@@ -408,7 +450,7 @@
           <div class="project-tech"><span>Python</span><span>Scapy</span><span>Nmap API</span><span>SQLite</span></div>
         </div>
       </div>
-      <div class="project-card animate-on-scroll">
+      <div class="project-card animate-on-scroll" data-project="2">
         <div class="project-banner">
           <span class="icon">&#128187;</span>
           <div class="overlay"><span class="btn btn-outline" style="font-size:0.75rem" data-i18n="view_details">View Details</span></div>
@@ -420,7 +462,7 @@
           <div class="project-tech"><span>React</span><span>Node.js</span><span>WebSocket</span><span>D3.js</span></div>
         </div>
       </div>
-      <div class="project-card animate-on-scroll">
+      <div class="project-card animate-on-scroll" data-project="3">
         <div class="project-banner">
           <span class="icon">&#128274;</span>
           <div class="overlay"><span class="btn btn-outline" style="font-size:0.75rem" data-i18n="view_details">View Details</span></div>
@@ -432,7 +474,7 @@
           <div class="project-tech"><span>Go</span><span>AES-256</span><span>RSA</span><span>Docker</span></div>
         </div>
       </div>
-      <div class="project-card animate-on-scroll">
+      <div class="project-card animate-on-scroll" data-project="4">
         <div class="project-banner">
           <span class="icon">&#128026;</span>
           <div class="overlay"><span class="btn btn-outline" style="font-size:0.75rem" data-i18n="view_details">View Details</span></div>
@@ -442,6 +484,29 @@
           <h3>MalwareScope</h3>
           <p data-i18n="proj4_desc">Automated malware analysis sandbox with behavioral detection, network traffic analysis and IOC extraction.</p>
           <div class="project-tech"><span>Python</span><span>YARA</span><span>Cuckoo</span><span>ELK Stack</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+      <div class="modal-content">
+        <button class="modal-close" id="modalClose">&times;</button>
+        <div class="modal-icon" id="modalIcon"></div>
+        <div class="modal-tag" id="modalTag"></div>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p class="modal-desc" id="modalDesc"></p>
+        <div class="modal-section">
+          <h4 class="modal-subtitle" data-i18n="modal_features">Key Features</h4>
+          <ul class="modal-list" id="modalFeatures"></ul>
+        </div>
+        <div class="modal-section">
+          <h4 class="modal-subtitle" data-i18n="modal_stack">Tech Stack</h4>
+          <div class="modal-tech" id="modalTech"></div>
+        </div>
+        <div class="modal-section">
+          <h4 class="modal-subtitle" data-i18n="modal_status">Status</h4>
+          <div class="modal-status" id="modalStatus"></div>
         </div>
       </div>
     </div>
@@ -609,6 +674,134 @@
     // Load saved lang
     const savedLang = localStorage.getItem('lang') || 'en';
     if (savedLang !== 'en') setLang(savedLang);
+
+    // ===== PROJECT MODALS =====
+    const projectData = {
+      en: {
+        1: {
+          icon: '&#128375;', tag: '// security tool', title: 'NetPhantom Scanner',
+          desc: 'A comprehensive network reconnaissance framework designed for security professionals. NetPhantom automates the process of network discovery, service enumeration, and vulnerability identification across complex enterprise environments.',
+          features: ['Automated host discovery and port scanning with stealth modes', 'Service fingerprinting and version detection', 'CVE database integration for real-time vulnerability matching', 'HTML/PDF report generation with severity ratings', 'API for integration with CI/CD security pipelines'],
+          tech: ['Python', 'Scapy', 'Nmap API', 'SQLite', 'Flask', 'Celery'],
+          status: 'Active development // v2.3.1'
+        },
+        2: {
+          icon: '&#128187;', tag: '// web app', title: 'DarkBoard Dashboard',
+          desc: 'Real-time security operations center dashboard that aggregates threat intelligence feeds, monitors network traffic anomalies, and provides actionable security alerts with automated incident response workflows.',
+          features: ['Live threat map with geolocation of attack sources', 'Integration with MITRE ATT&CK framework', 'Automated alert triage and severity classification', 'Custom dashboard widgets with drag-and-drop', 'WebSocket-based real-time data streaming'],
+          tech: ['React', 'Node.js', 'WebSocket', 'D3.js', 'Redis', 'PostgreSQL'],
+          status: 'Production // deployed internally'
+        },
+        3: {
+          icon: '&#128274;', tag: '// crypto tool', title: 'CipherVault',
+          desc: 'A zero-knowledge encrypted file storage system where the server never has access to decryption keys. Built with military-grade encryption and designed for maximum data privacy and security.',
+          features: ['Client-side AES-256-GCM encryption before upload', 'RSA-4096 key exchange for secure sharing', 'Zero-knowledge architecture — server never sees plaintext', 'Secure file sharing with expiring access tokens', 'Self-hosted Docker deployment with auto-TLS'],
+          tech: ['Go', 'AES-256', 'RSA-4096', 'Docker', 'MinIO', 'gRPC'],
+          status: 'Beta // open-source on GitHub'
+        },
+        4: {
+          icon: '&#128026;', tag: '// research', title: 'MalwareScope',
+          desc: 'An automated malware analysis sandbox that executes suspicious binaries in an isolated environment, captures behavioral indicators, monitors network communications, and generates comprehensive threat intelligence reports.',
+          features: ['Dynamic analysis in isolated VM/container sandboxes', 'YARA rule matching for known malware families', 'Network traffic capture and C2 communication detection', 'Automated IOC extraction (hashes, IPs, domains, mutexes)', 'Integration with VirusTotal and threat intel platforms'],
+          tech: ['Python', 'YARA', 'Cuckoo Sandbox', 'ELK Stack', 'Docker', 'Volatility'],
+          status: 'Research // v1.8.0'
+        }
+      },
+      ru: {
+        1: {
+          icon: '&#128375;', tag: '// инструмент безопасности', title: 'NetPhantom Scanner',
+          desc: 'Комплексный фреймворк сетевой разведки для специалистов по безопасности. NetPhantom автоматизирует процесс обнаружения сетей, перечисления сервисов и выявления уязвимостей в сложных корпоративных средах.',
+          features: ['Автоматическое обнаружение хостов и сканирование портов в stealth-режиме', 'Фингерпринтинг сервисов и определение версий', 'Интеграция с базой CVE для матчинга уязвимостей в реальном времени', 'Генерация отчётов HTML/PDF с рейтингами критичности', 'API для интеграции с CI/CD пайплайнами безопасности'],
+          tech: ['Python', 'Scapy', 'Nmap API', 'SQLite', 'Flask', 'Celery'],
+          status: 'Активная разработка // v2.3.1'
+        },
+        2: {
+          icon: '&#128187;', tag: '// веб-приложение', title: 'DarkBoard Dashboard',
+          desc: 'Дашборд центра управления безопасностью в реальном времени, агрегирующий фиды угроз, мониторящий аномалии сетевого трафика и предоставляющий алерты безопасности с автоматизированными воркфлоу реагирования.',
+          features: ['Карта угроз с геолокацией источников атак', 'Интеграция с фреймворком MITRE ATT&CK', 'Автоматическая сортировка алертов по критичности', 'Кастомные виджеты дашборда с drag-and-drop', 'Потоковая передача данных через WebSocket'],
+          tech: ['React', 'Node.js', 'WebSocket', 'D3.js', 'Redis', 'PostgreSQL'],
+          status: 'Продакшн // развёрнут внутренне'
+        },
+        3: {
+          icon: '&#128274;', tag: '// крипто-инструмент', title: 'CipherVault',
+          desc: 'Файловое хранилище с zero-knowledge шифрованием, где сервер никогда не имеет доступа к ключам дешифрования. Построено с шифрованием военного класса для максимальной конфиденциальности данных.',
+          features: ['Клиентское шифрование AES-256-GCM перед загрузкой', 'Обмен ключами RSA-4096 для безопасного шеринга', 'Zero-knowledge архитектура — сервер не видит открытый текст', 'Безопасный шеринг файлов с истекающими токенами', 'Self-hosted Docker деплой с авто-TLS'],
+          tech: ['Go', 'AES-256', 'RSA-4096', 'Docker', 'MinIO', 'gRPC'],
+          status: 'Бета // open-source на GitHub'
+        },
+        4: {
+          icon: '&#128026;', tag: '// исследование', title: 'MalwareScope',
+          desc: 'Автоматизированная песочница для анализа малвари, запускающая подозрительные бинарники в изолированной среде, захватывающая поведенческие индикаторы и генерирующая отчёты threat intelligence.',
+          features: ['Динамический анализ в изолированных VM/контейнерах', 'Матчинг YARA-правил для известных семейств малвари', 'Захват сетевого трафика и детект C2-коммуникаций', 'Автоматическое извлечение IOC (хеши, IP, домены, мьютексы)', 'Интеграция с VirusTotal и платформами threat intel'],
+          tech: ['Python', 'YARA', 'Cuckoo Sandbox', 'ELK Stack', 'Docker', 'Volatility'],
+          status: 'Исследование // v1.8.0'
+        }
+      },
+      ua: {
+        1: {
+          icon: '&#128375;', tag: '// інструмент безпеки', title: 'NetPhantom Scanner',
+          desc: 'Комплексний фреймворк мережевої розвідки для спеціалістів з безпеки. NetPhantom автоматизує процес виявлення мереж, перерахування сервісів та ідентифікації вразливостей у складних корпоративних середовищах.',
+          features: ['Автоматичне виявлення хостів та сканування портів у stealth-режимі', 'Фінгерпринтинг сервісів та визначення версій', 'Інтеграція з базою CVE для матчингу вразливостей в реальному часі', 'Генерація звітів HTML/PDF з рейтингами критичності', 'API для інтеграції з CI/CD пайплайнами безпеки'],
+          tech: ['Python', 'Scapy', 'Nmap API', 'SQLite', 'Flask', 'Celery'],
+          status: 'Активна розробка // v2.3.1'
+        },
+        2: {
+          icon: '&#128187;', tag: '// веб-додаток', title: 'DarkBoard Dashboard',
+          desc: 'Дашборд центру управління безпекою в реальному часі, що агрегує фіди загроз, моніторить аномалії мережевого трафіку та надає алерти безпеки з автоматизованими воркфлоу реагування.',
+          features: ['Карта загроз з геолокацією джерел атак', 'Інтеграція з фреймворком MITRE ATT&CK', 'Автоматичне сортування алертів за критичністю', 'Кастомні віджети дашборду з drag-and-drop', 'Потокова передача даних через WebSocket'],
+          tech: ['React', 'Node.js', 'WebSocket', 'D3.js', 'Redis', 'PostgreSQL'],
+          status: 'Продакшн // розгорнуто внутрішньо'
+        },
+        3: {
+          icon: '&#128274;', tag: '// крипто-інструмент', title: 'CipherVault',
+          desc: 'Файлове сховище з zero-knowledge шифруванням, де сервер ніколи не має доступу до ключів дешифрування. Побудовано з шифруванням військового класу для максимальної конфіденційності даних.',
+          features: ['Клієнтське шифрування AES-256-GCM перед завантаженням', 'Обмін ключами RSA-4096 для безпечного шерингу', 'Zero-knowledge архітектура — сервер не бачить відкритий текст', 'Безпечний шеринг файлів з токенами, що закінчуються', 'Self-hosted Docker деплой з авто-TLS'],
+          tech: ['Go', 'AES-256', 'RSA-4096', 'Docker', 'MinIO', 'gRPC'],
+          status: 'Бета // open-source на GitHub'
+        },
+        4: {
+          icon: '&#128026;', tag: '// дослідження', title: 'MalwareScope',
+          desc: 'Автоматизована пісочниця для аналізу малварі, що запускає підозрілі бінарники в ізольованому середовищі, захоплює поведінкові індикатори та генерує звіти threat intelligence.',
+          features: ['Динамічний аналіз в ізольованих VM/контейнерах', 'Матчинг YARA-правил для відомих сімейств малварі', 'Захоплення мережевого трафіку та детект C2-комунікацій', 'Автоматичне вилучення IOC (хеші, IP, домени, м\'ютекси)', 'Інтеграція з VirusTotal та платформами threat intel'],
+          tech: ['Python', 'YARA', 'Cuckoo Sandbox', 'ELK Stack', 'Docker', 'Volatility'],
+          status: 'Дослідження // v1.8.0'
+        }
+      }
+    };
+
+    const modal = document.getElementById('modal');
+    const modalClose = document.getElementById('modalClose');
+
+    function openModal(id) {
+      const lang = localStorage.getItem('lang') || 'en';
+      const p = projectData[lang][id];
+      document.getElementById('modalIcon').innerHTML = p.icon;
+      document.getElementById('modalTag').textContent = p.tag;
+      document.getElementById('modalTitle').textContent = p.title;
+      document.getElementById('modalDesc').textContent = p.desc;
+      document.getElementById('modalFeatures').innerHTML = p.features.map(f => '<li>' + f + '</li>').join('');
+      document.getElementById('modalTech').innerHTML = p.tech.map(t => '<span>' + t + '</span>').join('');
+      document.getElementById('modalStatus').textContent = p.status;
+      // Update modal subtitle translations
+      const subtitleKeys = { modal_features: {en:'Key Features',ru:'Ключевые фичи',ua:'Ключові фічі'}, modal_stack:{en:'Tech Stack',ru:'Стек технологий',ua:'Стек технологій'}, modal_status:{en:'Status',ru:'Статус',ua:'Статус'} };
+      document.querySelectorAll('.modal-subtitle').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (subtitleKeys[k]) el.textContent = subtitleKeys[k][lang];
+      });
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    modalClose.addEventListener('click', () => { modal.classList.remove('active'); document.body.style.overflow = ''; });
+    modal.addEventListener('click', (e) => { if (e.target === modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { modal.classList.remove('active'); document.body.style.overflow = ''; } });
+
+    document.querySelectorAll('.project-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.getAttribute('data-project');
+        if (id) openModal(id);
+      });
+    });
 
     // ===== MATRIX =====
     const canvas = document.getElementById('matrix-bg');
