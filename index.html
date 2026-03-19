@@ -50,7 +50,7 @@
       top: 0; left: 0;
       width: 100%; height: 100%;
       z-index: -2;
-      opacity: 0.12;
+      opacity: 0.4;
       pointer-events: none;
     }
 
@@ -843,18 +843,24 @@
     });
 
     function drawMatrix() {
-      ctx.fillStyle = 'rgba(5, 5, 5, 0.05)';
+      ctx.fillStyle = 'rgba(5, 5, 5, 0.04)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#ff0040';
       ctx.font = fontSize + 'px Share Tech Mono, monospace';
 
       for (let i = 0; i < drops.length; i++) {
         const text = charArr[Math.floor(Math.random() * charArr.length)];
-        ctx.globalAlpha = Math.random() * 0.5 + 0.1;
+        // Head of the stream — bright white-red
+        ctx.fillStyle = '#ff4466';
+        ctx.globalAlpha = 0.9;
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        // Trail — dimmer red
+        ctx.fillStyle = '#ff0040';
+        ctx.globalAlpha = Math.random() * 0.4 + 0.3;
+        const trailText = charArr[Math.floor(Math.random() * charArr.length)];
+        ctx.fillText(trailText, i * fontSize, (drops[i] - 1) * fontSize);
         ctx.globalAlpha = 1;
 
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.96) {
           drops[i] = 0;
         }
         drops[i]++;
