@@ -140,6 +140,15 @@
     .corner-box::before { top:0; left:0; border-width:2px 0 0 2px; }
     .corner-box::after { bottom:0; right:0; border-width:0 2px 2px 0; }
 
+    /* Section corner decorations */
+    .section-corners { position:relative; }
+    .section-corners::before,.section-corners::after { content:''; position:absolute; width:30px; height:30px; border-color:var(--red); border-style:solid; opacity:0.4; pointer-events:none; }
+    .section-corners::before { top:0; left:0; border-width:2px 0 0 2px; }
+    .section-corners::after { bottom:0; right:0; border-width:0 2px 2px 0; }
+    .section-corners .corner-tr,.section-corners .corner-bl { position:absolute; width:30px; height:30px; border-color:var(--red); border-style:solid; opacity:0.4; pointer-events:none; }
+    .section-corners .corner-tr { top:0; right:0; border-width:2px 2px 0 0; }
+    .section-corners .corner-bl { bottom:0; left:0; border-width:0 0 2px 2px; }
+
     /* SECTIONS */
     section { padding:6rem 2rem; max-width:1100px; margin:0 auto; position:relative; }
     .section-header { text-align:center; margin-bottom:4rem; }
@@ -355,7 +364,8 @@
   </section>
 
   <!-- ABOUT -->
-  <section id="about">
+  <section id="about" class="section-corners">
+    <span class="corner-tr"></span><span class="corner-bl"></span>
     <div class="section-header animate-on-scroll">
       <div class="section-label" data-i18n="about_label">// 01. who am i</div>
       <h2 data-i18n-html="about_title">ABOUT <span class="red">ME</span></h2>
@@ -385,10 +395,32 @@
     </div>
   </section>
 
-  <!-- SKILLS -->
-  <section id="skills">
+  <!-- CONTACT -->
+  <section id="contact" class="section-corners">
+    <span class="corner-tr"></span><span class="corner-bl"></span>
     <div class="section-header animate-on-scroll">
-      <div class="section-label" data-i18n="skills_label">// 02. what i do</div>
+      <div class="section-label" data-i18n="contact_label">// 02. reach out</div>
+      <h2 data-i18n-html="contact_title">CON<span class="red">TACT</span></h2>
+    </div>
+    <div class="contact-wrapper animate-on-scroll">
+      <div class="corner-box">
+        <p data-i18n="contact_text">Got a project in mind? Want to collaborate? Or just want to talk security? Hit me up on Telegram.</p>
+        <a href="https://t.me/a_kto_ty_root" target="_blank" class="tg-btn">
+          <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+          @a_kto_ty_root
+        </a>
+        <div class="terminal-line">
+          <span class="prompt">root@kali</span>:<span class="cmd" data-i18n="contact_terminal">~# echo "Let's build something dangerous"</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section-corners">
+    <span class="corner-tr"></span><span class="corner-bl"></span>
+    <div class="section-header animate-on-scroll">
+      <div class="section-label" data-i18n="skills_label">// 03. what i do</div>
       <h2 data-i18n-html="skills_title">MY <span class="red">SKILLS</span></h2>
     </div>
     <div class="skills-grid">
@@ -432,9 +464,10 @@
   </section>
 
   <!-- PROJECTS -->
-  <section id="projects">
+  <section id="projects" class="section-corners">
+    <span class="corner-tr"></span><span class="corner-bl"></span>
     <div class="section-header animate-on-scroll">
-      <div class="section-label" data-i18n="projects_label">// 03. my work</div>
+      <div class="section-label" data-i18n="projects_label">// 04. my work</div>
       <h2 data-i18n-html="projects_title">PRO<span class="red">JECTS</span></h2>
     </div>
     <div class="projects-grid">
@@ -512,26 +545,6 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
-  <section id="contact">
-    <div class="section-header animate-on-scroll">
-      <div class="section-label" data-i18n="contact_label">// 04. reach out</div>
-      <h2 data-i18n-html="contact_title">CON<span class="red">TACT</span></h2>
-    </div>
-    <div class="contact-wrapper animate-on-scroll">
-      <div class="corner-box">
-        <p data-i18n="contact_text">Got a project in mind? Want to collaborate? Or just want to talk security? Hit me up on Telegram.</p>
-        <a href="https://t.me/a_kto_ty_root" target="_blank" class="tg-btn">
-          <svg viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
-          @a_kto_ty_root
-        </a>
-        <div class="terminal-line">
-          <span class="prompt">root@kali</span>:<span class="cmd" data-i18n="contact_terminal">~# echo "Let's build something dangerous"</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <footer>
     <p>[ <span class="red">root</span>@portfolio ] &mdash; built with raw code &amp; dark energy &mdash; 2026</p>
   </footer>
@@ -550,7 +563,7 @@
         about_p1: "Cybersecurity enthusiast & web developer. I study systems from the inside out — understanding how things break is the key to building them stronger. I specialize in offensive security, penetration testing and building secure web applications.",
         about_p2: "Every line of code is a weapon or a shield. I choose to master both.",
         stat_projects: "Projects", stat_years: "Years exp", stat_curiosity: "Curiosity",
-        skills_label: "// 02. what i do",
+        skills_label: "// 03. what i do",
         skills_title: 'MY <span class="red">SKILLS</span>',
         skill1_title: "Penetration Testing",
         skill1_desc: "Security auditing of web applications, networks and infrastructure. Finding vulnerabilities before the bad guys do.",
@@ -564,14 +577,14 @@
         skill5_desc: "Buffer overflow exploitation, shellcode writing, vulnerability research and proof-of-concept development.",
         skill6_title: "Red Team Ops",
         skill6_desc: "Adversary simulation, social engineering assessment, phishing campaigns and full attack chain emulation.",
-        projects_label: "// 03. my work",
+        projects_label: "// 04. my work",
         projects_title: 'PRO<span class="red">JECTS</span>',
         view_details: "View Details",
         proj1_desc: "Advanced network reconnaissance tool with automated vulnerability detection and detailed reporting.",
         proj2_desc: "Real-time cybersecurity monitoring dashboard with threat intelligence feeds and alert management.",
         proj3_desc: "End-to-end encrypted file storage with custom cryptographic protocols and zero-knowledge architecture.",
         proj4_desc: "Automated malware analysis sandbox with behavioral detection, network traffic analysis and IOC extraction.",
-        contact_label: "// 04. reach out",
+        contact_label: "// 02. reach out",
         contact_title: 'CON<span class="red">TACT</span>',
         contact_text: "Got a project in mind? Want to collaborate? Or just want to talk security? Hit me up on Telegram.",
         contact_terminal: '~# echo "Let\'s build something dangerous"'
@@ -587,7 +600,7 @@
         about_p1: "Энтузиаст кибербезопасности и веб-разработчик. Я изучаю системы изнутри — понимание того, как вещи ломаются, является ключом к их укреплению. Специализируюсь на наступательной безопасности, пентесте и создании защищённых веб-приложений.",
         about_p2: "Каждая строка кода — это оружие или щит. Я выбираю владеть и тем, и другим.",
         stat_projects: "Проекты", stat_years: "Лет опыта", stat_curiosity: "Любопытство",
-        skills_label: "// 02. что я делаю",
+        skills_label: "// 03. что я делаю",
         skills_title: 'МОИ <span class="red">НАВЫКИ</span>',
         skill1_title: "Пентест",
         skill1_desc: "Аудит безопасности веб-приложений, сетей и инфраструктуры. Нахожу уязвимости раньше злоумышленников.",
@@ -601,14 +614,14 @@
         skill5_desc: "Эксплуатация переполнения буфера, написание шелл-кода, исследование уязвимостей и разработка PoC.",
         skill6_title: "Red Team",
         skill6_desc: "Имитация атак, оценка социальной инженерии, фишинговые кампании и эмуляция полной цепочки атак.",
-        projects_label: "// 03. мои работы",
+        projects_label: "// 04. мои работы",
         projects_title: 'ПРО<span class="red">ЕКТЫ</span>',
         view_details: "Подробнее",
         proj1_desc: "Продвинутый инструмент сетевой разведки с автоматическим обнаружением уязвимостей и детальной отчётностью.",
         proj2_desc: "Дашборд мониторинга кибербезопасности в реальном времени с фидами угроз и управлением алертами.",
         proj3_desc: "Зашифрованное файловое хранилище со сквозным шифрованием, кастомными криптопротоколами и zero-knowledge архитектурой.",
         proj4_desc: "Автоматизированная песочница для анализа малвари с поведенческим детектом, анализом трафика и извлечением IOC.",
-        contact_label: "// 04. связаться",
+        contact_label: "// 02. связаться",
         contact_title: 'КОН<span class="red">ТАКТ</span>',
         contact_text: "Есть проект? Хочешь сотрудничать? Или просто поговорить о безопасности? Пиши мне в Telegram.",
         contact_terminal: '~# echo "Давай построим что-то опасное"'
@@ -624,7 +637,7 @@
         about_p1: "Ентузіаст кібербезпеки та веб-розробник. Я вивчаю системи зсередини — розуміння того, як речі ламаються, є ключем до їх зміцнення. Спеціалізуюсь на наступальній безпеці, пентесті та створенні захищених веб-додатків.",
         about_p2: "Кожен рядок коду — це зброя або щит. Я обираю володіти і тим, і іншим.",
         stat_projects: "Проєкти", stat_years: "Років досвіду", stat_curiosity: "Допитливість",
-        skills_label: "// 02. що я роблю",
+        skills_label: "// 03. що я роблю",
         skills_title: 'МОЇ <span class="red">НАВИЧКИ</span>',
         skill1_title: "Пентест",
         skill1_desc: "Аудит безпеки веб-додатків, мереж та інфраструктури. Знаходжу вразливості раніше за зловмисників.",
@@ -638,14 +651,14 @@
         skill5_desc: "Експлуатація переповнення буфера, написання шелл-коду, дослідження вразливостей та розробка PoC.",
         skill6_title: "Red Team",
         skill6_desc: "Імітація атак, оцінка соціальної інженерії, фішингові кампанії та емуляція повного ланцюжка атак.",
-        projects_label: "// 03. мої роботи",
+        projects_label: "// 04. мої роботи",
         projects_title: 'ПРО<span class="red">ЄКТИ</span>',
         view_details: "Детальніше",
         proj1_desc: "Просунутий інструмент мережевої розвідки з автоматичним виявленням вразливостей та детальною звітністю.",
         proj2_desc: "Дашборд моніторингу кібербезпеки в реальному часі з фідами загроз та управлінням алертами.",
         proj3_desc: "Зашифроване файлове сховище з наскрізним шифруванням, кастомними криптопротоколами та zero-knowledge архітектурою.",
         proj4_desc: "Автоматизована пісочниця для аналізу малварі з поведінковим детектом, аналізом трафіку та вилученням IOC.",
-        contact_label: "// 04. зв'язатися",
+        contact_label: "// 02. зв'язатися",
         contact_title: 'КОН<span class="red">ТАКТ</span>',
         contact_text: "Маєш проєкт? Хочеш співпрацювати? Або просто поговорити про безпеку? Пиши мені в Telegram.",
         contact_terminal: '~# echo "Давай побудуємо щось небезпечне"'
